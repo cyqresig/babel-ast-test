@@ -18,7 +18,8 @@ const babelCustomCodeFilterPlugin = require('./plugins/babel-custom-code-filter'
 // const filePath = path.join(__dirname, 'code-function.js');
 // const filePath = path.join(__dirname, 'code.js');
 // const filePath = path.join(__dirname, 'expressStatement.js');
-const filePath = path.join(__dirname, 'callExpression.js');
+// const filePath = path.join(__dirname, 'callExpression.js');
+const filePath = path.join(__dirname, 'code-import.js');
 
 const code = fs.readFileSync(filePath, {
     encoding: 'utf8',

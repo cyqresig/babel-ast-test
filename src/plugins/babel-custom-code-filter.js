@@ -3,27 +3,43 @@
  * @author chenyiqin
  */
 
+// code-variable
+// module.exports = function(babel) {
+//     var t = babel.types;
+//     return {
+//         visitor: {
+//             VariableDeclarator: function(path, options) {
+//                 const node = path.node;
+//                 if (node.id.name === 'a' && node.init.value === 1) {
+//                     node.init.value = 2;
+//                 } else if (node.id.name === 'b' && node.init.value === 2) {
+//                     node.init.value = 1;
+//                 }
+//             }
+//         }
+//     };
+// };
+
+// callExpression
 module.exports = function(babel) {
     var t = babel.types;
     return {
         visitor: {
-            CallExpression: function(path, settings) {
-                if (path.node.arguments &&
-                    path.node.arguments.length === 3 &&
-                    path.node.callee &&
-                    path.node.callee.object &&
-                    path.node.callee.object.name === 'require' &&
-                    path.node.callee.property &&
-                    path.node.callee.property.name === 'context' &&
-                    path.node.arguments[0].value === '../mock-server/api' &&
-                    path.node.arguments[1].value === true &&
-                    path.node.arguments[2].pattern === '\\.js(on)?$') {
+            CallExpression: function(path, options) {
+                const node = path.node;
+                const arguments = node.arguments;
+                const callee = node.callee;
+                if (arguments &&
+                    arguments.length === 3 && callee &&
+                    callee.object &&
+                    callee.object.name === 'require' &&
+                    callee.property &&
+                    callee.property.name === 'context' &&
+                    arguments[0].value === '../mock-server/api' &&
+                    arguments[1].value === true &&
+                    arguments[2].pattern === '\\.js(on)?$') {
                     path.replaceWith(
-                        // t.callExpression(
-                        //     t.memberExpression(
-                                t.functionExpression(null, [], t.blockStatement([])),
-                            // ),
-                        // ),
+                        t.functionExpression(null, [], t.blockStatement([])),
                     );
                 }
             }

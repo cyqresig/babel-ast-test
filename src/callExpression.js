@@ -1,1 +1,1 @@
-require.context('../mock-server/api', true, /\.js(on)?$/)
+require.context('../mock-server/api', true, /\.js(on)?$/);
