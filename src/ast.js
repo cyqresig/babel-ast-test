@@ -8,7 +8,7 @@ const path = require('path');
 const babylon = require("babylon");
 const traverse = require("babel-traverse").default;
 const babel = require('babel-core');
-const babelContextModuleFilterPlugin = require('./plugins/babel-context-module-filter');
+const babelCustomCodeFilterPlugin = require('./plugins/babel-custom-code-filter');
 
 // const filePath = path.join(__dirname, 'code-variable.js');
 // const filePath = path.join(__dirname, 'code-undefined.js');
@@ -17,8 +17,8 @@ const babelContextModuleFilterPlugin = require('./plugins/babel-context-module-f
 // const filePath = path.join(__dirname, 'code-regex.js');
 // const filePath = path.join(__dirname, 'code-function.js');
 // const filePath = path.join(__dirname, 'code.js');
-// const filePath = path.join(__dirname, 'callExpression.js');
-const filePath = path.join(__dirname, 'expressStatement.js');
+// const filePath = path.join(__dirname, 'expressStatement.js');
+const filePath = path.join(__dirname, 'callExpression.js');
 
 const code = fs.readFileSync(filePath, {
     encoding: 'utf8',
@@ -31,7 +31,7 @@ const ast = babylon.parse(code);
 
 const newAst = babel.transform(code, {
     plugins: [
-        [babelContextModuleFilterPlugin, {
+        [babelCustomCodeFilterPlugin, {
             debug: true,
         }]
     ],
