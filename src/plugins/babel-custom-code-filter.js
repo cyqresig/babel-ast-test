@@ -38,6 +38,9 @@ module.exports = function(babel) {
                     arguments[0].value === '../mock-server/api' &&
                     arguments[1].value === true &&
                     arguments[2].pattern === '\\.js(on)?$') {
+
+                    console.dir(options.opts, {depth: 3});
+
                     path.replaceWith(
                         t.functionExpression(null, [], t.blockStatement([])),
                     );

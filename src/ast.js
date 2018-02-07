@@ -8,7 +8,8 @@ const path = require('path');
 const babylon = require("babylon");
 const traverse = require("babel-traverse").default;
 const babel = require('babel-core');
-const babelCustomCodeFilterPlugin = require('./plugins/babel-custom-code-filter');
+// const babelCustomCodeFilterPlugin = require('./plugins/babel-custom-code-filter');
+const babelDefinePlugin = require('./plugins/babel-plugin-define');
 
 // const filePath = path.join(__dirname, 'code-variable.js');
 // const filePath = path.join(__dirname, 'code-undefined.js');
@@ -19,7 +20,8 @@ const babelCustomCodeFilterPlugin = require('./plugins/babel-custom-code-filter'
 // const filePath = path.join(__dirname, 'code.js');
 // const filePath = path.join(__dirname, 'expressStatement.js');
 // const filePath = path.join(__dirname, 'callExpression.js');
-const filePath = path.join(__dirname, 'code-import.js');
+// const filePath = path.join(__dirname, 'code-import.js');
+const filePath = path.join(__dirname, 'code-identifier.js');
 
 const code = fs.readFileSync(filePath, {
     encoding: 'utf8',
@@ -32,8 +34,15 @@ const ast = babylon.parse(code);
 
 const newAst = babel.transform(code, {
     plugins: [
-        [babelCustomCodeFilterPlugin, {
-            debug: true,
+        // [babelCustomCodeFilterPlugin, {
+        //     debug: true,
+        //     customParam: 'customParam',
+        // }]
+        [babelDefinePlugin, {
+            _uv1_: '1',
+            _uv2_: '2',
+            _uv3_: '3',
+            _uv4_: '4',
         }]
     ],
 });
